@@ -3,9 +3,9 @@
 //it uses the users avatar, username and the actua l post itself and a caption
 //Used in the home page to show each post consistently 
 
-import {View, Text, Image, StyleSheet, Pressable} from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import { Image, StyleSheet, Text, View } from 'react-native';
 import Avatar from './Avatar';
-import {Ionicons} from '@expo/vector-icons';
 
 interface PostCardProps {
     post: {
@@ -17,13 +17,28 @@ interface PostCardProps {
     };  
 }
 
+//this is the start of a function that makes a random count next to the icons
+// i put something that will keep it simple so theres not overflow for example 23k or 23M instead of 23000/23000000
+function countFormat(n:number) {
+    if (n < 1000 ) return String(n);
+    if (n < 1000000) return Math.floor(n / 1000) + "k";
+    return Math.floor(n / 1000000) + "m";
+}
 
 export default function PostCard ({post}: PostCardProps) {
+//these are the random numbers for likes comments and shares
+// added mulitples because was returning 0 without it
+    const likes = Math.floor(Math.random() * 5000);
+    const comments = Math.floor(Math.random() * 500 );
+    const shares = Math.floor(Math.random() * 200);
+
+
     return (
         <View style={styles.card}>
             <View style = {styles.header}>
                 <Avatar uri={post.avatar} size={40} />
                 <Text style={styles.user}>{post.user}</Text>
+                <Ionicons name="ellipsis-horizontal" size={22} color="black" style={{ marginLeft: 'auto' }} />
             </View>
         
 
@@ -31,15 +46,21 @@ export default function PostCard ({post}: PostCardProps) {
         {/* resizeMode="cover" should help us not lose marks for image not fitting on screen */}
         
         <View style = {styles.actions}>
-            <Pressable>
-                <Ionicons name="heart-outline" size={28} color="black" />
-            </Pressable>
-            <Pressable>
-                <Ionicons name="chatbubble-outline" size={28} color="black" />
-            </Pressable>
-            <Pressable>
-                <Ionicons name="paper-plane-outline" size={28} color="black" />
-            </Pressable>
+            <View style={styles.actionItem}>    
+                <Ionicons name="heart-outline" size={24} color="black" />
+                <Text style={styles.count}>{countFormat(likes)}</Text>
+            </View>
+
+            <View style={styles.actionItem}>    
+                <Ionicons name="chatbubble-outline" size={24} color="black" />
+                <Text style={styles.count}>{countFormat(comments)}</Text>
+            </View>
+
+            <View style={styles.actionItem}>    
+                <Ionicons name="paper-plane-outline" size={24} color="black" />
+                <Text style={styles.count}>{countFormat(shares)}</Text>
+            </View>
+        
 
 
         </View>
@@ -89,8 +110,20 @@ const styles = StyleSheet.create ({
 
     actions: {
         flexDirection: 'row',
-        gap: 16,
+        gap: 24,
         paddingHorizontal: 12,
         paddingVertical: 10,
+    },
+
+    actionItem: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 6,
+    },
+
+    count: {
+        fontSize: 14,
+        color: 'black',
+
     },
 });

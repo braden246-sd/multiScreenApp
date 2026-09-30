@@ -3,7 +3,7 @@ import { Tabs } from 'expo-router';
 
 export default function TabsLayout() {
   return (
-    <Tabs screenOptions={{headerTitleAlign: 'left', tabBarActiveTintColor: 'black', tabBarInactiveTintColor: 'gray',}}>
+    <Tabs screenOptions={{headerTitleAlign: 'left', tabBarActiveTintColor: 'black', tabBarInactiveTintColor: 'gray', headerRight: () => ( <Ionicons name= "search-outline" size={24} color="black" style = {{ marginRight: 16}}/>),}}>
       <Tabs.Screen name="index" options={{ title: 'Home', tabBarIcon: ({color, size}) => 
         ( <Ionicons name="home-outline" size={size} color={color}/> ), 
         }}
