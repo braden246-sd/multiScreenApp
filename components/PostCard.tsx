@@ -75,7 +75,7 @@ const styles = StyleSheet.create ({
         borderRadius: 16,
         marginBottom: 20,
         paddingBottom: 20,
-        elevation: 4, //android shadow 
+        elevation: 6, //android shadow 
         shadowColor: '#000',
         shadowOpacity: 0.1,
 
