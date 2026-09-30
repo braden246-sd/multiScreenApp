@@ -1,31 +1,60 @@
-import { StyleSheet } from 'react-native';
+//this is the main home screen that shows stories at the top and posts below
+//it uses StoryBubble and postcard reusable components
 
-import EditScreenInfo from '@/components/EditScreenInfo';
-import { Text, View } from '@/components/Themed';
+import { FlatList, ScrollView, StyleSheet } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import PostCard from '../../components/PostCard';
+import StoryBubble from '../../components/StoryBubble';
 
-export default function TabOneScreen() {
+const stories = [
+  { id: '1', name: 'Alice', image: 'https://picsum.photos/200/200?1' },
+  { id: '2', name: 'Bob', image: 'https://picsum.photos/200/200?2' },
+  { id: '3', name: 'Cara', image: 'https://picsum.photos/200/200?3' },
+];
+
+const posts = [
+  {
+    id: '1',
+    user: 'Alice',
+    avatar: 'https://picsum.photos/200/200?1',
+    image: 'https://picsum.photos/600/600?10',
+    caption: 'Beautiful day outside!',
+  },
+  {
+    id: '2',
+    user: 'Bob',
+    avatar: 'https://picsum.photos/200/200?2',
+    image: 'https://picsum.photos/600/600?11',
+    caption: 'Coffee time',
+  },
+];
+
+export default function HomeScreen() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Tab One</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="app/(tabs)/index.tsx" />
-    </View>
+    <SafeAreaView edges= {['bottom']} style={styles.screen}>
+      <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.storiesRow}>
+        {stories.map((story) => ( 
+          <StoryBubble key={story.id} uri={story.image} name= {story.name} />
+        ))}
+      </ScrollView>
+
+      <FlatList data={posts} keyExtractor={(item) => item.id} renderItem={({item}) => <PostCard post={item}/>} showsVerticalScrollIndicator={false} />
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  screen: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    padding: 16,
+    backgroundColor: 'white',
+
   },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
+  storiesRow: {
+    marginTop: 8,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 16,
+
   },
 });
