@@ -96,6 +96,7 @@ const styles = StyleSheet.create ({
 
     image: {
         width: '100%',
+        borderRadius: 6,
         aspectRatio: 1, 
     }, //again keeping things in line so we dont lose marks for diferent size devicce
 

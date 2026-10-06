@@ -1,6 +1,5 @@
 import AlertRow from "@/components/AlertSwitch";
 import { useState } from "react";
-import { Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function NotificationsScreen() {
@@ -95,7 +94,7 @@ export default function NotificationsScreen() {
 
   return (
     <SafeAreaView style={{ flex: 1, padding: 20 }}>
-      <Text>Notifications Screen</Text>
+      
 
 
       <AlertRow
